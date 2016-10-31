@@ -22,7 +22,7 @@ Upon observation, channel/video/celebrity links are RESTful, meaning they encode
 
 Since all the info is encoded in the URL path, therefore it becomes straightforward to retrieve the `content_type` as well as `item`, and use a hash table of `content_type` to map `item` to its occurrence count.
 
-After going through all the links and inserting their item to hash tables, one may assume checking for duplicates is a matter of checking which item occurs more than once. But there's a caveat:
+After going through all the links, one may assume checking for duplicates is a matter of checking which content occurs more than once. But there's a caveat:
 
 * Celebrity and channel links appear in pairs.
 * Video links are standalone.
@@ -38,5 +38,4 @@ Hence we apply a simple heuristic to detect if any of them is duplicate by setti
 ### Duplicates found as of 01/11/2016
 
 `Likely duplicate video: 1113035v-customize-happiness-episode-12`
-
 `Likely duplicate channel: 33458c-customize-happiness`
