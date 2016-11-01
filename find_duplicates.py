@@ -43,8 +43,8 @@ def find_duplicates(links):
             print "Likely duplicate channel:", channel
 
 
-if __name__ == "__main__":
-    SITE = "http://www.viki.com"
+def get_http_response(site):
+    # Header is needed to circumvent HTTP Error 403
     HEADER = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11' \
                       '(KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
@@ -54,7 +54,12 @@ if __name__ == "__main__":
         'Accept-Language': 'en-US,en;q=0.8',
         'Connection': 'keep-alive'}
 
-    request = urllib2.Request(SITE, headers=HEADER)
-    response = urllib2.urlopen(request)
-    find_duplicates(BeautifulSoup(response, "html.parser",
-                                  parse_only=SoupStrainer('a')))
+    request = urllib2.Request(site, headers=HEADER)
+    return urllib2.urlopen(request)
+
+
+if __name__ == "__main__":
+    response = get_http_response("http://www.viki.com")
+    links = BeautifulSoup(response, "html.parser",
+                          parse_only=SoupStrainer('a'))
+    find_duplicates(links)
